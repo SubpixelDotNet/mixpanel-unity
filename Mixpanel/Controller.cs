@@ -25,6 +25,7 @@ namespace mixpanel
         
         private static Controller _instance;
 
+#if !UNITY_WEBGL
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void InitializeBeforeSceneLoad()
         {
@@ -39,7 +40,8 @@ namespace mixpanel
             GetEngageDefaultProperties();
             GetEventsDefaultProperties();
         }
-        
+#endif
+
         internal static Controller GetInstance()
         {
             if (_instance == null)
@@ -64,6 +66,7 @@ namespace mixpanel
             }
         }
 
+#if !UNITY_WEBGL
         private IEnumerator Start()
         {
             MigrateFrom1To2();
@@ -78,6 +81,7 @@ namespace mixpanel
                 DoFlush();
             }
         }
+#endif
 
         private void TrackIntegrationEvent()
         {
